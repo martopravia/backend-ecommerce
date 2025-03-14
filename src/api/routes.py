@@ -13,6 +13,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 import cloudinary.uploader
 from random import sample
 import cloudinary
+from sqlalchemy import create_engine
 
 
 
@@ -33,6 +34,19 @@ print("CLOUD_NAME:", os.getenv("CLOUDINARY_CLOUD_NAME"))
 print("API_KEY:", os.getenv("CLOUDINARY_API_KEY"))
 print("API_SECRET:", os.getenv("CLOUDINARY_API_SECRET"))
 
+test_db = Blueprint('test_db', __name__)
+
+@test_db.route('/test-db')
+def test_database():
+    try:
+        DATABASE_URL = os.getenv("DATABASE_URL")  # Leer la URL de la BD
+        engine = create_engine(DATABASE_URL)
+        connection = engine.connect()
+        connection.close()
+        return "✅ Conexión exitosa a la base de datos", 200
+    except Exception as e:
+        return f"🚨 Error conectando a la base de datos: {e}", 500
+    
 @api.route('/products', methods=['GET'])
 def get_products():
     products = Product.query.all()

@@ -14,6 +14,11 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_cors import CORS
+from src.api.routes import test_db  # Ajusta según el nombre real del módulo
+
+app = Flask(__name__)
+app.register_blueprint(test_db)  # Agregar la ruta a la API
+
 
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
