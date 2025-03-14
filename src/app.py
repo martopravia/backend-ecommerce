@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+import sys
 import cloudinary
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
@@ -15,6 +16,7 @@ from api.commands import setup_commands
 from flask_cors import CORS
 
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # from models import Person
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
