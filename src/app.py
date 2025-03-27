@@ -15,6 +15,9 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_cors import CORS
 from src.api.routes import test_db  # Ajusta según el nombre real del módulo
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.register_blueprint(test_db)  # Agregar la ruta a la API
@@ -93,3 +96,5 @@ def serve_any_other_file(path):
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))
